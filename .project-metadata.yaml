@@ -1,0 +1,33 @@
+name: OpenAI Text to SQL Intelligent Conversion
+description: |
+  Leverage OpenAI for intelligent conversion of Text to SQL based on context from database table schemas.
+
+author: Cloudera Inc.
+specification_version: 1.0
+prototype_version: 1.0
+date: "2023-09-11"
+
+runtimes:
+  - editor: Workbench
+    kernel: Python 3.9
+    edition: Nvidia GPU
+
+tasks:
+  - type: run_session
+    name: Install Dependencies
+    script: 0_session-install-deps/install_dependencies.py
+    short_summary: Install Dependencies
+    kernel: python3
+    cpu: 2
+    memory: 8
+  
+  - type: start_application
+    name: CML OpenAI Text to SQL
+    subdomain: cmlllm
+    script: 1_app/llm_rag_app.py
+    short_summary: Start CML OpenAI Text to SQL application
+    long_summary: This application requires an available GPU to run the LLM model. Startup may be delayed if autoscaling is being performed or fail if GPU cannot be scheduled on this workspace. Please contact your administrator for GPU scheduling.
+    cpu: 2
+    memory: 16
+    environment_variables:
+      TASK_TYPE: START_APPLICATION
